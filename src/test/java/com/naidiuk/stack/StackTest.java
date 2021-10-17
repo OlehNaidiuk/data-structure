@@ -19,8 +19,12 @@ class StackTest {
     @Test
     void testPop() {
         stack.pop();
-        assertFalse(stack.isEmpty());
         assertEquals(2, stack.getStackSize());
+        assertFalse(stack.isEmpty());
+        stack.pop();
+        stack.pop();
+        assertEquals(0, stack.getStackSize());
+        assertTrue(stack.isEmpty());
     }
 
     @Test
@@ -33,11 +37,19 @@ class StackTest {
     @Test
     public void testIsEmpty() {
         assertFalse(stack.isEmpty());
+        stack.pop();
+        stack.pop();
+        stack.pop();
+        assertTrue(stack.isEmpty());
     }
 
     @Test
     public void testGetStackSize() {
         assertEquals(3, stack.getStackSize());
+        stack.pop();
+        stack.pop();
+        stack.pop();
+        assertEquals(0, stack.getStackSize());
     }
 
     @Test
