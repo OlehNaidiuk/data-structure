@@ -1,7 +1,5 @@
 package com.naidiuk.stack;
 
-import java.util.Arrays;
-
 public class Stack {
     private Object[] arrayOfObjects;
     private int stackSize;
@@ -24,7 +22,7 @@ public class Stack {
 
     public void push(Object object) {
         if (stackSize == arrayOfObjects.length) {
-            Object[] arrayCopy = new Object[stackSize + 1];
+            Object[] arrayCopy = new Object[stackSize * 2];
             System.arraycopy(arrayOfObjects, 0, arrayCopy, 0, arrayOfObjects.length);
             arrayOfObjects = arrayCopy;
         }
@@ -33,10 +31,19 @@ public class Stack {
     }
 
     public boolean isEmpty() {
-        return stackSize == 0;
+        return getStackSize() == 0;
     }
 
+    public int getStackSize() {
+        return stackSize;
+    }
+
+    @Override
     public String toString() {
-        return Arrays.toString(arrayOfObjects);
+        String result = "";
+        for (Object object : arrayOfObjects) {
+            result += object + ", ";
+        }
+        return result;
     }
 }
