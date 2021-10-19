@@ -1,6 +1,6 @@
-package com.naidiuk.stack;
+package com.naidiuk.queue;
 
-public interface Stack {
+public interface Queue {
     Object pop();
     void push(Object object);
     boolean isEmpty();

@@ -1,59 +1,98 @@
 package com.naidiuk.stack;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StackTest {
 
-    Stack stack = new Stack(3);
+    private final Stack noSizeStack = new Components();
+    private final Stack withSizeStack = new Components(2);
 
-    @BeforeEach
-    public void setUp() {
-        stack.push("gfgjfdhj");
-        stack.push(23452345);
-        stack.push('H');
+    @Test
+    void testPushAndPopNoSizeStack() {
+        //When
+        noSizeStack.push("Hi");
+        noSizeStack.push("Stats!");
+        noSizeStack.push("There");
+        noSizeStack.push("are");
+        noSizeStack.push("my");
+        noSizeStack.push("tests.");
+
+        //Then
+        assertEquals("tests.", noSizeStack.pop());
+        assertEquals("my", noSizeStack.pop());
+        assertEquals(4, noSizeStack.getSize());
     }
 
     @Test
-    void testPop() {
-        stack.pop();
-        assertEquals(2, stack.getStackSize());
-        assertFalse(stack.isEmpty());
-        stack.pop();
-        stack.pop();
-        assertEquals(0, stack.getStackSize());
-        assertTrue(stack.isEmpty());
+    void testIsEmptyNoSizeStack() {
+        assertTrue(noSizeStack.isEmpty());
+
+        //When
+        noSizeStack.push("Hi");
+        noSizeStack.push("Stats!");
+
+        //Then
+        assertFalse(noSizeStack.isEmpty());
     }
 
     @Test
-    void testPush() {
-        stack.push(5345.12);
-        assertFalse(stack.isEmpty());
-        assertEquals(4, stack.getStackSize());
+    void testGetSizeNoSizeStack() {
+        assertEquals(0, noSizeStack.getSize());
+
+        //When
+        noSizeStack.push("There");
+        noSizeStack.push("are");
+        noSizeStack.push("my");
+        noSizeStack.push("tests.");
+        noSizeStack.pop();
+        noSizeStack.pop();
+        noSizeStack.pop();
+
+        //Then
+        assertEquals(1, noSizeStack.getSize());
     }
 
     @Test
-    public void testIsEmpty() {
-        assertFalse(stack.isEmpty());
-        stack.pop();
-        stack.pop();
-        stack.pop();
-        assertTrue(stack.isEmpty());
+    void testPushAndPopWithSizeStack() {
+        //When
+        withSizeStack.push(123);
+        withSizeStack.push(3.22);
+
+        //Then
+        assertEquals(2, withSizeStack.getSize());
+        assertEquals(3.22, withSizeStack.pop());
+        assertEquals(123, withSizeStack.pop());
+        withSizeStack.push("Hi");
+        withSizeStack.push("Stas!");
+        withSizeStack.push("This is");
+        withSizeStack.push("Oleh.");
+        assertEquals(4, withSizeStack.getSize());
+        assertEquals("Oleh.", withSizeStack.pop());
     }
 
     @Test
-    public void testGetStackSize() {
-        assertEquals(3, stack.getStackSize());
-        stack.pop();
-        stack.pop();
-        stack.pop();
-        assertEquals(0, stack.getStackSize());
+    void testIsEmptyWithSizeStack() {
+        assertTrue(withSizeStack.isEmpty());
+
+        //When
+        withSizeStack.push("Hi");
+
+        //Then
+        assertFalse(withSizeStack.isEmpty());
     }
 
     @Test
-    public void testToString() {
-        assertEquals("gfgjfdhj, 23452345, H, ", stack.toString());
+    void testGetSizeWithSizeStack() {
+        assertEquals(0, noSizeStack.getSize());
+
+        //When
+        noSizeStack.push("There are my");
+        noSizeStack.push("tests.");
+        noSizeStack.pop();
+
+        //Then
+        assertEquals(1, noSizeStack.getSize());
     }
 }
