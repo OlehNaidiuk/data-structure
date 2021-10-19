@@ -1,25 +1,23 @@
-package com.naidiuk.queue;
+package com.naidiuk.stack;
 
-public class Elements implements Queue {
+public class ArrayStack implements StackInterface {
     private Object[] array;
     private int size;
 
-    public Elements() {
+    public ArrayStack() {
         array = new Object[20];
     }
 
-    public Elements(int size) {
+    public ArrayStack(int size) {
         array = new Object[size];
     }
 
     public Object pop() {
         if (isEmpty()) {
-            throw new RuntimeException("Queue is empty");
+            throw new RuntimeException("Stack is empty");
         }
-        Object first = array[0];
-        System.arraycopy(array, 1, array, 0, array.length - 1);
         size--;
-        return first;
+        return array[size];
     }
 
     public void push(Object object) {
