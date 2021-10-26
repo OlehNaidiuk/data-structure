@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StackInterfaceTest {
+class ArrayStackTest {
 
     private final StackInterface noSizeStackInterface = new ArrayStack();
     private final StackInterface withSizeStackInterface = new ArrayStack(2);
@@ -13,7 +13,7 @@ class StackInterfaceTest {
     void testPushAndPopNoSizeStack() {
         //When
         noSizeStackInterface.push("Hi");
-        noSizeStackInterface.push("Stats!");
+        noSizeStackInterface.push("Stas!");
         noSizeStackInterface.push("There");
         noSizeStackInterface.push("are");
         noSizeStackInterface.push("my");
@@ -31,7 +31,7 @@ class StackInterfaceTest {
 
         //When
         noSizeStackInterface.push("Hi");
-        noSizeStackInterface.push("Stats!");
+        noSizeStackInterface.push("Stas!");
 
         //Then
         assertFalse(noSizeStackInterface.isEmpty());

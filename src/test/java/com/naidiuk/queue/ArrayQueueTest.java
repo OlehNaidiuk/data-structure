@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class QueueInterfaceTest {
+class ArrayQueueTest {
 
     private final QueueInterface noSizeQueueInterface = new ArrayQueue();
     private final QueueInterface withSizeQueueInterface = new ArrayQueue(2);
@@ -13,7 +13,7 @@ class QueueInterfaceTest {
     void testPushAndPopNoSizeQueue() {
         //When
         noSizeQueueInterface.push("Hi");
-        noSizeQueueInterface.push("Stats!");
+        noSizeQueueInterface.push("Stas!");
         noSizeQueueInterface.push("There");
         noSizeQueueInterface.push("are");
         noSizeQueueInterface.push("my");
@@ -50,7 +50,7 @@ class QueueInterfaceTest {
     void testPushAndPopWithSizeQueue() {
         //When
         withSizeQueueInterface.push("Hi");
-        withSizeQueueInterface.push("Stats!");
+        withSizeQueueInterface.push("Stas!");
         withSizeQueueInterface.push("There are my tests.");
 
         //Then
@@ -68,7 +68,7 @@ class QueueInterfaceTest {
     void testGetSizeWithSizeQueue() {
         //When
         withSizeQueueInterface.push("Hi");
-        withSizeQueueInterface.push("Stats!");
+        withSizeQueueInterface.push("Stas!");
         withSizeQueueInterface.push("There are my tests.");
 
         //Then

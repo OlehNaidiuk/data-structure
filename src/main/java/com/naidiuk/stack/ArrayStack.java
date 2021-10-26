@@ -39,8 +39,15 @@ public class ArrayStack implements StackInterface {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        for (Object object : array) {
-            result.append(object).append(", ");
+        result.append('[');
+        for (int i = 0; i < array.length; i++) {
+            result.append(array[i]);
+            if (i == array.length - 1) {
+                result.append(']');
+                break;
+            } else {
+                result.append(", ");
+            }
         }
         return result.toString();
     }
