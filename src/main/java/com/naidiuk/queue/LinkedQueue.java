@@ -8,10 +8,6 @@ public class LinkedQueue implements QueueInterface {
         if (isEmpty()) {
             throw new RuntimeException("Queue is empty");
         }
-        if (size == 1) {
-            size--;
-            return first.getElement();
-        }
         Object firstElement = first.getElement();
         first = first.getLink();
         size--;
@@ -21,12 +17,10 @@ public class LinkedQueue implements QueueInterface {
     public void push(Object object) {
         Node createdNode = new Node();
         createdNode.setElement(object);
-        if (size == 0) {
+        if (isEmpty()) {
             first = createdNode;
-        } else if (size == 1) {
-            first.setLink(createdNode);
-        } else if (size > 1) {
-            last.setLink(createdNode);
+        } else {
+            last.setLinkToTheNext(createdNode);
         }
         last = createdNode;
         size++;

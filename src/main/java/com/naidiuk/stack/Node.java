@@ -12,7 +12,7 @@ public class Node {
         return element;
     }
 
-    public void setLink(Node node) {
+    public void setLinkToThePrevious(Node node) {
         this.link = node;
     }
 

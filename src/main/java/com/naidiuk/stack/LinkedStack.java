@@ -8,10 +8,6 @@ public class LinkedStack implements StackInterface {
         if (isEmpty()) {
             throw new RuntimeException("Stack is empty");
         }
-        if (size == 1) {
-            size--;
-            return last.getElement();
-        }
         Object lastElement = last.getElement();
         last = last.getLink();
         size--;
@@ -21,7 +17,7 @@ public class LinkedStack implements StackInterface {
     public void push(Object object) {
         Node createdNode = new Node();
         createdNode.setElement(object);
-        createdNode.setLink(last);
+        createdNode.setLinkToThePrevious(last);
         last = createdNode;
         size++;
     }
