@@ -1,5 +1,7 @@
 package com.naidiuk.queue;
 
+import com.naidiuk.list.ArrayList;
+
 public class ArrayQueue implements QueueInterface {
     private Object[] array;
     private int size;

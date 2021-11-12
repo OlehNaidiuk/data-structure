@@ -1,77 +1,76 @@
 package com.naidiuk.queue;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayQueueTest {
 
-    private final QueueInterface noSizeQueueInterface = new ArrayQueue();
-    private final QueueInterface withSizeQueueInterface = new ArrayQueue(2);
+    private final QueueInterface noSizedQueue = new ArrayQueue();
+    private final QueueInterface sizedQueue = new ArrayQueue(2);
 
     @Test
-    void testPushAndPopNoSizeQueue() {
+    void testNoSizeQueuePushAndPop() {
         //When
-        noSizeQueueInterface.push("Hi");
-        noSizeQueueInterface.push("Stas!");
-        noSizeQueueInterface.push("There");
-        noSizeQueueInterface.push("are");
-        noSizeQueueInterface.push("my");
-        noSizeQueueInterface.push("tests.");
+        noSizedQueue.push("Hi");
+        noSizedQueue.push("Stas!");
+        noSizedQueue.push("There");
+        noSizedQueue.push("are");
+        noSizedQueue.push("my");
+        noSizedQueue.push("tests.");
 
         //Then
-        assertEquals("Hi", noSizeQueueInterface.pop());
-        assertEquals("Stas!", noSizeQueueInterface.pop());
-        assertEquals(4, noSizeQueueInterface.getSize());
+        assertEquals("Hi", noSizedQueue.pop());
+        assertEquals("Stas!", noSizedQueue.pop());
+        assertEquals(4, noSizedQueue.getSize());
     }
 
     @Test
-    void testIsEmptyNoSizeQueue() {
-        assertTrue(noSizeQueueInterface.isEmpty());
+    void testNoSizeQueueIsEmpty() {
+        assertTrue(noSizedQueue.isEmpty());
 
         //When
-        noSizeQueueInterface.push(123);
-        noSizeQueueInterface.push("you");
+        noSizedQueue.push(123);
+        noSizedQueue.push("you");
 
         //Then
-        assertFalse(noSizeQueueInterface.isEmpty());
+        assertFalse(noSizedQueue.isEmpty());
     }
 
     @Test
-    void testGetSizeNoSizeQueue() {
+    void testNoSizeQueueGetSize() {
         //When
-        noSizeQueueInterface.push(123);
+        noSizedQueue.push(123);
 
         //Then
-        assertEquals(1, noSizeQueueInterface.getSize());
+        assertEquals(1, noSizedQueue.getSize());
     }
 
     @Test
-    void testPushAndPopWithSizeQueue() {
+    void testSizedQueuePushAndPop() {
         //When
-        withSizeQueueInterface.push("Hi");
-        withSizeQueueInterface.push("Stas!");
-        withSizeQueueInterface.push("There are my tests.");
+        sizedQueue.push("Hi");
+        sizedQueue.push("Stas!");
+        sizedQueue.push("There are my tests.");
 
         //Then
-        assertEquals(3, withSizeQueueInterface.getSize());
-        assertEquals("Hi", withSizeQueueInterface.pop());
-        assertEquals(2, withSizeQueueInterface.getSize());
+        assertEquals(3, sizedQueue.getSize());
+        assertEquals("Hi", sizedQueue.pop());
+        assertEquals(2, sizedQueue.getSize());
     }
 
     @Test
-    void testIsEmptyWithSizeQueue() {
-        assertTrue(withSizeQueueInterface.isEmpty());
+    void testSizedQueueIsEmpty() {
+        assertTrue(sizedQueue.isEmpty());
     }
 
     @Test
-    void testGetSizeWithSizeQueue() {
+    void testSizedQueueGetSize() {
         //When
-        withSizeQueueInterface.push("Hi");
-        withSizeQueueInterface.push("Stas!");
-        withSizeQueueInterface.push("There are my tests.");
+        sizedQueue.push("Hi");
+        sizedQueue.push("Stas!");
+        sizedQueue.push("There are my tests.");
 
         //Then
-        assertEquals(3, withSizeQueueInterface.getSize());
+        assertEquals(3, sizedQueue.getSize());
     }
 }

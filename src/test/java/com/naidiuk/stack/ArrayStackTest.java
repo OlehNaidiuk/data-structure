@@ -6,93 +6,93 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayStackTest {
 
-    private final StackInterface noSizeStackInterface = new ArrayStack();
-    private final StackInterface withSizeStackInterface = new ArrayStack(2);
+    private final StackInterface noSizedStack = new ArrayStack();
+    private final StackInterface sizedStack = new ArrayStack(2);
 
     @Test
-    void testPushAndPopNoSizeStack() {
+    void testNoSizeStackPushAndPop() {
         //When
-        noSizeStackInterface.push("Hi");
-        noSizeStackInterface.push("Stas!");
-        noSizeStackInterface.push("There");
-        noSizeStackInterface.push("are");
-        noSizeStackInterface.push("my");
-        noSizeStackInterface.push("tests.");
+        noSizedStack.push("Hi");
+        noSizedStack.push("Stas!");
+        noSizedStack.push("There");
+        noSizedStack.push("are");
+        noSizedStack.push("my");
+        noSizedStack.push("tests.");
 
         //Then
-        assertEquals("tests.", noSizeStackInterface.pop());
-        assertEquals("my", noSizeStackInterface.pop());
-        assertEquals(4, noSizeStackInterface.getSize());
+        assertEquals("tests.", noSizedStack.pop());
+        assertEquals("my", noSizedStack.pop());
+        assertEquals(4, noSizedStack.getSize());
     }
 
     @Test
-    void testIsEmptyNoSizeStack() {
-        assertTrue(noSizeStackInterface.isEmpty());
+    void testNoSizeStackIsEmpty() {
+        assertTrue(noSizedStack.isEmpty());
 
         //When
-        noSizeStackInterface.push("Hi");
-        noSizeStackInterface.push("Stas!");
+        noSizedStack.push("Hi");
+        noSizedStack.push("Stas!");
 
         //Then
-        assertFalse(noSizeStackInterface.isEmpty());
+        assertFalse(noSizedStack.isEmpty());
     }
 
     @Test
-    void testGetSizeNoSizeStack() {
-        assertEquals(0, noSizeStackInterface.getSize());
+    void testNoSizeStackGetSize() {
+        assertEquals(0, noSizedStack.getSize());
 
         //When
-        noSizeStackInterface.push("There");
-        noSizeStackInterface.push("are");
-        noSizeStackInterface.push("my");
-        noSizeStackInterface.push("tests.");
-        noSizeStackInterface.pop();
-        noSizeStackInterface.pop();
-        noSizeStackInterface.pop();
+        noSizedStack.push("There");
+        noSizedStack.push("are");
+        noSizedStack.push("my");
+        noSizedStack.push("tests.");
+        noSizedStack.pop();
+        noSizedStack.pop();
+        noSizedStack.pop();
 
         //Then
-        assertEquals(1, noSizeStackInterface.getSize());
+        assertEquals(1, noSizedStack.getSize());
     }
 
     @Test
-    void testPushAndPopWithSizeStack() {
+    void testSizedStackPushAndPop() {
         //When
-        withSizeStackInterface.push(123);
-        withSizeStackInterface.push(3.22);
+        sizedStack.push(123);
+        sizedStack.push(3.22);
 
         //Then
-        assertEquals(2, withSizeStackInterface.getSize());
-        assertEquals(3.22, withSizeStackInterface.pop());
-        assertEquals(123, withSizeStackInterface.pop());
-        withSizeStackInterface.push("Hi");
-        withSizeStackInterface.push("Stas!");
-        withSizeStackInterface.push("This is");
-        withSizeStackInterface.push("Oleh.");
-        assertEquals(4, withSizeStackInterface.getSize());
-        assertEquals("Oleh.", withSizeStackInterface.pop());
+        assertEquals(2, sizedStack.getSize());
+        assertEquals(3.22, sizedStack.pop());
+        assertEquals(123, sizedStack.pop());
+        sizedStack.push("Hi");
+        sizedStack.push("Stas!");
+        sizedStack.push("This is");
+        sizedStack.push("Oleh.");
+        assertEquals(4, sizedStack.getSize());
+        assertEquals("Oleh.", sizedStack.pop());
     }
 
     @Test
-    void testIsEmptyWithSizeStack() {
-        assertTrue(withSizeStackInterface.isEmpty());
+    void testSizedStackIsEmpty() {
+        assertTrue(sizedStack.isEmpty());
 
         //When
-        withSizeStackInterface.push("Hi");
+        sizedStack.push("Hi");
 
         //Then
-        assertFalse(withSizeStackInterface.isEmpty());
+        assertFalse(sizedStack.isEmpty());
     }
 
     @Test
-    void testGetSizeWithSizeStack() {
-        assertEquals(0, noSizeStackInterface.getSize());
+    void testSizedStackGetSize() {
+        assertEquals(0, sizedStack.getSize());
 
         //When
-        noSizeStackInterface.push("There are my");
-        noSizeStackInterface.push("tests.");
-        noSizeStackInterface.pop();
+        sizedStack.push("There are my");
+        sizedStack.push("tests.");
+        sizedStack.pop();
 
         //Then
-        assertEquals(1, noSizeStackInterface.getSize());
+        assertEquals(1, sizedStack.getSize());
     }
 }
