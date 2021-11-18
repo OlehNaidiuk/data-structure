@@ -1,7 +1,7 @@
 package com.naidiuk.list;
 
 public class Node {
-    private Object element;
+    private final Object element;
     private Node linkToPrevious;
     private Node linkToNext;
 

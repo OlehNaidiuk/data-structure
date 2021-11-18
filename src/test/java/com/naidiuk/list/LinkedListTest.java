@@ -9,7 +9,7 @@ class LinkedListTest {
 
     @BeforeEach
     void setup() {
-        linkedList.add(123);
+        linkedList.add(123,0);
         linkedList.add(null, 1);
     }
 
