@@ -1,49 +1,46 @@
 package com.naidiuk.list;
 
-public class ArrayList implements ListInterface {
-    private Object[] list;
+import java.util.NoSuchElementException;
+
+public class ArrayList implements List {
+    private Object[] array;
     private int size;
     private static final int DEFAULT_CAPACITY = 10;
 
     public ArrayList() {
-        list = new Object[DEFAULT_CAPACITY];
+        array = new Object[DEFAULT_CAPACITY];
     }
 
     public ArrayList(int size) {
-        list = new Object[size];
+        array = new Object[size];
     }
 
     public void add(Object element) {
-        if (size == list.length) {
+        if (size == array.length) {
             reSize();
         }
-        list[size] = element;
+        array[size] = element;
         size++;
     }
 
     public void add(Object element, int index) {
-        if (index < 0 || index >= list.length) {
-            throw new RuntimeException("Entered index does not exist! "
-                    + "Please enter an index between 0 and " + (list.length - 1) + ".");
-        }
-        if (size == list.length) {
+        if (size == array.length) {
             reSize();
         }
-        System.arraycopy(list, index, list, index + 1, list.length - 1 - index);
-        list[index] = element;
+        checkIndexBounds(index);
+        System.arraycopy(array, index, array, index + 1, size - index);
+        array[index] = element;
         size++;
     }
 
     public Object remove(int index) {
-        if (index < 0 || index >= list.length) {
-            throw new RuntimeException("Entered index does not exist. "
-                    + "Please enter an index between 0 and " + (list.length - 1) + ".");
-        }
         if (isEmpty()) {
-            throw new RuntimeException("List is empty!");
+            throw new NoSuchElementException("There are no elements in the list that can be removed!");
+        } else {
+            checkIndexBounds(index);
         }
-        Object removedElement = list[index];
-        System.arraycopy(list, index + 1, list, index, list.length - 1 - index);
+        Object removedElement = array[index];
+        System.arraycopy(array, index + 1, array, index, size - 1 - index);
         size--;
         return removedElement;
     }
@@ -57,29 +54,24 @@ public class ArrayList implements ListInterface {
     }
 
     public Object getElement(int index) {
-        if (index < 0 || index >= list.length) {
-            throw new RuntimeException("The element with this index does not exist. "
-                    + "Please enter an index between 0 and " + (list.length - 1) + ".");
-        }
         if (isEmpty()) {
-            throw new RuntimeException("List is empty!");
+            throw new NoSuchElementException("There are no elements in the list!");
+        } else {
+            checkIndexBounds(index);
         }
-        return list[index];
+        return array[index];
     }
 
     public boolean contains(Object element) {
-        if (isEmpty()) {
-            throw new RuntimeException("List is empty!");
-        }
         if (element == null) {
-            for (int i = 0; i < list.length; i++) {
-                if (list[i] == null) {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == null) {
                     return true;
                 }
             }
         } else {
-            for (int i = 0; i < list.length; i++) {
-                if (element.equals(list[i])) {
+            for (int i = 0; i < array.length; i++) {
+                if (element.equals(array[i])) {
                     return true;
                 }
             }
@@ -90,11 +82,11 @@ public class ArrayList implements ListInterface {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append('[');
-        for (int i = 0; i < list.length; i++) {
-            result.append(list[i]);
-            if (i == list.length - 1) {
-                result.append(']');
+        result.append("[");
+        for (int i = 0; i < array.length; i++) {
+            result.append(array[i]);
+            if (i == array.length - 1) {
+                result.append("]");
                 break;
             } else {
                 result.append(", ");
@@ -104,8 +96,19 @@ public class ArrayList implements ListInterface {
     }
 
     private void reSize() {
-        Object[] resizedList = new Object[size * 2];
-        System.arraycopy(list, 0, resizedList, 0, list.length);
-        list = resizedList;
+        if (array.length == 0) {
+            array = new Object[array.length + 1];
+        } else {
+            Object[] resizedArray = new Object[size * 2];
+            System.arraycopy(array, 0, resizedArray, 0, array.length);
+            array = resizedArray;
+        }
+    }
+
+    private void checkIndexBounds(int index) {
+        if (index < 0 || index >= array.length) {
+            throw new IndexOutOfBoundsException("Index does not exist! "
+                    + "Please enter index between 0 and " + (array.length - 1) + ".");
+        }
     }
 }

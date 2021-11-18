@@ -17,7 +17,7 @@ public class LinkedStack implements StackInterface {
     public void push(Object object) {
         Node createdNode = new Node();
         createdNode.setElement(object);
-        createdNode.setLinkToThePrevious(last);
+        createdNode.setLinkToPrevious(last);
         last = createdNode;
         size++;
     }

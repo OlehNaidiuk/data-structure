@@ -19,10 +19,11 @@ public class LinkedQueue implements QueueInterface {
         createdNode.setElement(object);
         if (isEmpty()) {
             first = createdNode;
+            last = first;
         } else {
             last.setLinkToTheNext(createdNode);
+            last = createdNode;
         }
-        last = createdNode;
         size++;
     }
 

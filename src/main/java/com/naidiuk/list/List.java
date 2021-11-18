@@ -1,6 +1,6 @@
 package com.naidiuk.list;
 
-public interface ListInterface {
+public interface List {
     void add(Object element);
     void add(Object element, int index);
     Object remove(int index);
