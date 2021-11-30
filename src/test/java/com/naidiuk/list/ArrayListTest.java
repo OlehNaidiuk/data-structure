@@ -6,18 +6,18 @@ import org.junit.jupiter.api.Test;
 
 public class ArrayListTest {
 
-    private final List noSizedList = new ArrayList();
-    private final List sizedList = new ArrayList(3);
+    private final List<String> noSizedList = new ArrayList<>();
+    private final List<String> sizedList = new ArrayList<>(3);
 
     @BeforeEach
     void setup() {
-        noSizedList.add(123);
-        noSizedList.add(3.21, 1);
+        noSizedList.add("123");
+        noSizedList.add("3.21", 1);
         noSizedList.add(null, 1);
         noSizedList.add("hello");
 
-        sizedList.add(789);
-        sizedList.add(33.4567, 1);
+        sizedList.add("789");
+        sizedList.add("33.4567", 1);
         sizedList.add(null, 1);
     }
 
@@ -26,15 +26,15 @@ public class ArrayListTest {
         //When
         int size = noSizedList.getSize();
         String noSizedListContains = noSizedList.toString();
-        noSizedList.add(789);
-        noSizedList.add(33.4567, 1);
+        noSizedList.add("789");
+        noSizedList.add("33.4567", 1);
         int sizeAfterAdd = noSizedList.getSize();
 
         //Then
         assertEquals(4, size);
-        assertEquals("[123, null, 3.21, hello, null, null, null, null, null, null]", noSizedListContains);
+        assertEquals("{123, null, 3.21, hello, null, null, null, null, null, null}", noSizedListContains);
         assertEquals(6, sizeAfterAdd);
-        assertEquals("[123, 33.4567, null, 3.21, hello, 789, null, null, null, null]", noSizedList.toString());
+        assertEquals("{123, 33.4567, null, 3.21, hello, 789, null, null, null, null}", noSizedList.toString());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ArrayListTest {
         //Then
         assertEquals(4, size);
         assertEquals(null, firstRemoved);
-        assertEquals(3.21, secondRemoved);
+        assertEquals("3.21", secondRemoved);
         assertEquals(2, sizeAfterRemove);
     }
 
@@ -65,7 +65,7 @@ public class ArrayListTest {
         //Then
         assertEquals(4, size);
         assertEquals(1, sizeAfterRemove);
-        assertEquals("[123, hello, hello, hello, null, null, null, null, null, null]", noSizedListContains);
+        assertEquals("{123, hello, hello, hello, null, null, null, null, null, null}", noSizedListContains);
     }
 
     @Test
@@ -92,9 +92,9 @@ public class ArrayListTest {
         Object fourth = noSizedList.getElement(3);
 
         //Then
-        assertEquals(123, first);
+        assertEquals("123", first);
         assertEquals(null, second);
-        assertEquals(3.21, third);
+        assertEquals("3.21", third);
         assertEquals("hello", fourth);
     }
 
@@ -102,7 +102,7 @@ public class ArrayListTest {
     void testNoSizedListContains() {
         //When
         boolean yes = noSizedList.contains(null);
-        boolean no = noSizedList.contains(789);
+        boolean no = noSizedList.contains("789");
 
         //Then
         assertEquals(true, yes);
@@ -120,9 +120,9 @@ public class ArrayListTest {
 
         //Then
         assertEquals(3, size);
-        assertEquals("[789, null, 33.4567]", sizedListContains);
+        assertEquals("{789, null, 33.4567}", sizedListContains);
         assertEquals(4, sizeAfterAdd);
-        assertEquals("[789, null, 33.4567, danger, null, null]", overSizedListContains);
+        assertEquals("{789, null, 33.4567, danger, null, null}", overSizedListContains);
     }
 
     @Test
@@ -132,8 +132,8 @@ public class ArrayListTest {
         String sizedListContains = sizedList.toString();
 
         //Then
-        assertEquals(33.4567, removed);
-        assertEquals("[789, null, 33.4567]", sizedListContains);
+        assertEquals("33.4567", removed);
+        assertEquals("{789, null, 33.4567}", sizedListContains);
     }
 
     @Test
@@ -177,7 +177,7 @@ public class ArrayListTest {
     void testSizedListContains() {
         //When
         boolean yes = sizedList.contains(null);
-        boolean no = sizedList.contains(123);
+        boolean no = sizedList.contains("123");
 
         //Then
         assertTrue(yes);

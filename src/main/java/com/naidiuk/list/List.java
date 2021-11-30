@@ -1,11 +1,11 @@
 package com.naidiuk.list;
 
-public interface List {
-    void add(Object element);
-    void add(Object element, int index);
-    Object remove(int index);
+public interface List<T> {
+    void add(T element);
+    void add(T element, int index);
+    T remove(int index);
     int getSize();
     boolean isEmpty();
-    Object getElement(int index);
-    boolean contains(Object element);
+    T getElement(int index);
+    boolean contains(T element);
 }

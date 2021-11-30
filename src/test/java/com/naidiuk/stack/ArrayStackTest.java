@@ -1,17 +1,16 @@
 package com.naidiuk.stack;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayStackTest {
 
-    private final StackInterface noSizedStack = new ArrayStack();
-    private final StackInterface sizedStack = new ArrayStack(2);
+    private final Stack<String> noSizedStack = new ArrayStack<>();
+    private final Stack<String> sizedStack = new ArrayStack<>(2);
 
-    @Test
-    void testNoSizeStackPushAndPop() {
-        //When
+    @BeforeEach
+    void setup() {
         noSizedStack.push("Hi");
         noSizedStack.push("Stas!");
         noSizedStack.push("There");
@@ -19,55 +18,65 @@ class ArrayStackTest {
         noSizedStack.push("my");
         noSizedStack.push("tests.");
 
+        sizedStack.push("3.22");
+        sizedStack.push("123");
+    }
+
+    @Test
+    void testNoSizeStackPushAndPop() {
+        //When
+        String lastElement = noSizedStack.pop();
+        String prelastElement = noSizedStack.pop();
+
         //Then
-        assertEquals("tests.", noSizedStack.pop());
-        assertEquals("my", noSizedStack.pop());
+        assertEquals("tests.", lastElement);
+        assertEquals("my", prelastElement);
         assertEquals(4, noSizedStack.getSize());
     }
 
     @Test
     void testNoSizeStackIsEmpty() {
-        assertTrue(noSizedStack.isEmpty());
-
         //When
-        noSizedStack.push("Hi");
-        noSizedStack.push("Stas!");
+        boolean no = noSizedStack.isEmpty();
+        noSizedStack.pop();
+        noSizedStack.pop();
+        noSizedStack.pop();
+        noSizedStack.pop();
+        noSizedStack.pop();
+        noSizedStack.pop();
+        boolean yes = noSizedStack.isEmpty();
 
         //Then
-        assertFalse(noSizedStack.isEmpty());
+        assertFalse(no);
+        assertTrue(yes);
     }
 
     @Test
     void testNoSizeStackGetSize() {
-        assertEquals(0, noSizedStack.getSize());
-
         //When
-        noSizedStack.push("There");
-        noSizedStack.push("are");
-        noSizedStack.push("my");
-        noSizedStack.push("tests.");
+        int size = noSizedStack.getSize();
         noSizedStack.pop();
         noSizedStack.pop();
         noSizedStack.pop();
+        int sizeAfterPop = noSizedStack.getSize();
 
         //Then
-        assertEquals(1, noSizedStack.getSize());
+        assertEquals(6, size);
+        assertEquals(3, sizeAfterPop);
     }
 
     @Test
     void testSizedStackPushAndPop() {
         //When
-        sizedStack.push(123);
-        sizedStack.push(3.22);
-
-        //Then
-        assertEquals(2, sizedStack.getSize());
-        assertEquals(3.22, sizedStack.pop());
-        assertEquals(123, sizedStack.pop());
         sizedStack.push("Hi");
         sizedStack.push("Stas!");
         sizedStack.push("This is");
         sizedStack.push("Oleh.");
+
+        //Then
+        assertEquals(6, sizedStack.getSize());
+        assertEquals("123", sizedStack.pop());
+        assertEquals("3.22", sizedStack.pop());
         assertEquals(4, sizedStack.getSize());
         assertEquals("Oleh.", sizedStack.pop());
     }

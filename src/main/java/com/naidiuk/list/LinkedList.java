@@ -1,13 +1,15 @@
 package com.naidiuk.list;
 
 import java.util.NoSuchElementException;
+import java.util.StringJoiner;
 
-public class LinkedList implements List {
-    private Node first;
-    private Node last;
+public class LinkedList<T> implements List<T> {
+
+    private Node<T> first;
+    private Node<T> last;
     private int size;
 
-    public void add(Object element) {
+    public void add(T element) {
         if (isEmpty()) {
             createFirstNode(element);
         } else {
@@ -16,7 +18,7 @@ public class LinkedList implements List {
         size++;
     }
 
-    public void add(Object element, int index) {
+    public void add(T element, int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index does not exist! " +
                     "Please enter index between 0 and " + size + ".");
@@ -35,14 +37,13 @@ public class LinkedList implements List {
         size++;
     }
 
-    public Object remove(int index) {
+    public T remove(int index) {
         if (isEmpty()) {
             throw new NoSuchElementException("There are no elements in the list that can be removed!");
         } else {
             checkIndexBounds(index);
         }
-        Node removed;
-        Object removedElement;
+        T removedElement;
         if (index == 0) {
             removedElement = first.getElement();
             first = first.getLinkToNext();
@@ -50,11 +51,11 @@ public class LinkedList implements List {
             removedElement = last.getElement();
             last = last.getLinkToPrevious();
         } else if (index > size / 2) {
-            removed = searchFromTheEnd(index);
+            Node<T> removed = searchFromTheEnd(index);
             removedElement = removed.getElement();
             setLinks(removed.getLinkToPrevious(), removed.getLinkToNext());
         } else {
-            removed = searchFromTheBeginning(index);
+            Node<T> removed = searchFromTheBeginning(index);
             removedElement = removed.getElement();
             setLinks(removed.getLinkToPrevious(), removed.getLinkToNext());
         }
@@ -70,27 +71,27 @@ public class LinkedList implements List {
         return size == 0;
     }
 
-    public Object getElement(int index) {
+    public T getElement(int index) {
         if (isEmpty()) {
             throw new NoSuchElementException("There are no elements in the list!");
         } else {
             checkIndexBounds(index);
         }
         if (index > size / 2) {
-            Node previous = searchFromTheEnd(index);
+            Node<T> previous = searchFromTheEnd(index);
             return previous.getElement();
         } else {
-            Node next = searchFromTheBeginning(index);
+            Node<T> next = searchFromTheBeginning(index);
             return next.getElement();
         }
     }
 
-    public boolean contains(Object element) {
+    public boolean contains(T element) {
         boolean flag = false;
-        Node next = first;
+        Node<T> next = first;
         if (element == null) {
             for (int i = 0; i < size; i++) {
-                Object linkedListElement = next.getElement();
+                T linkedListElement = next.getElement();
                 next = next.getLinkToNext();
                 if (linkedListElement == null) {
                     flag = true;
@@ -99,7 +100,7 @@ public class LinkedList implements List {
             }
         } else {
             for (int i = 0; i < size; i++) {
-                Object linkedListElement = next.getElement();
+                T linkedListElement = next.getElement();
                 next = next.getLinkToNext();
                 if (element.equals(linkedListElement)) {
                     flag = true;
@@ -115,59 +116,44 @@ public class LinkedList implements List {
         if (isEmpty()) {
             return "List is empty.";
         }
-        StringBuilder result = new StringBuilder();
-        Node next = first;
-        result.append("{");
+        StringJoiner result = new StringJoiner(", ", "{", "}");
+        Node<T> next = first;
         for (int i = 0; i < size; i++) {
-            Object linkedListElement = next.getElement();
+            Object element = next.getElement();
             next = next.getLinkToNext();
-            result.append(linkedListElement);
-            if (i == size - 1) {
-                result.append("}");
-                break;
-            } else {
-                result.append(", ");
-            }
+            result.add(String.valueOf(element));
         }
         return result.toString();
-//        StringJoiner result = new StringJoiner(", ", "{", "}");
-//        Node next = first;
-//        for (int i = 0; i < size; i++) {
-//            Object element = next.getElement();
-//            result.add(element.toString());
-//            next = next.getLinkToNext();
-//        }
-//        return result.toString();
     }
 
-    private void createFirstNode(Object element) {
-        first = new Node(element);
+    private void createFirstNode(T element) {
+        first = new Node<>(element);
         last = first;
     }
 
-    private void addToTheEnd(Object element) {
-        Node created = new Node(element);
+    private void addToTheEnd(T element) {
+        Node<T> created = new Node<>(element);
         last.setLinkToNext(created);
         created.setLinkToPrevious(last);
         last = created;
     }
 
-    private void addToTheBeginning(Object element) {
-        Node created = new Node(element);
+    private void addToTheBeginning(T element) {
+        Node<T> created = new Node<>(element);
         created.setLinkToNext(first);
         first.setLinkToPrevious(created);
         first = created;
     }
 
-    private void addFromTheBeginning(Object element, int index) {
-        Node created = new Node(element);
-        Node next = first;
+    private void addFromTheBeginning(T element, int index) {
+        Node<T> created = new Node<>(element);
+        Node<T> next = first;
         for (int i = 0; i < index; i++) {
             next = next.getLinkToNext();
         }
         next.setLinkToPrevious(created);
         created.setLinkToNext(next);
-        Node previous = first;
+        Node<T> previous = first;
         for (int i = 0; i < index - 1; i++) {
             previous = previous.getLinkToNext();
         }
@@ -175,15 +161,15 @@ public class LinkedList implements List {
         created.setLinkToPrevious(previous);
     }
 
-    private void addFromTheEnd(Object element, int index) {
-        Node created = new Node(element);
-        Node previous = last;
+    private void addFromTheEnd(T element, int index) {
+        Node<T> created = new Node<>(element);
+        Node<T> previous = last;
         for (int i = index; i < size; i++) {
             previous = previous.getLinkToPrevious();
         }
         previous.setLinkToNext(created);
         created.setLinkToPrevious(previous);
-        Node next = last;
+        Node<T> next = last;
         for (int i = index + 1; i < size; i++) {
             next = next.getLinkToPrevious();
         }
@@ -191,23 +177,23 @@ public class LinkedList implements List {
         created.setLinkToNext(next);
     }
 
-    private Node searchFromTheBeginning(int index) {
-        Node next = first;
+    private Node<T> searchFromTheBeginning(int index) {
+        Node<T> next = first;
         for (int i = 0; i < index; i++) {
             next = next.getLinkToNext();
         }
         return next;
     }
 
-    private Node searchFromTheEnd(int index) {
-        Node previous = last;
+    private Node<T> searchFromTheEnd(int index) {
+        Node<T> previous = last;
         for (int i = index; i < size - 1; i++) {
             previous = previous.getLinkToPrevious();
         }
         return previous;
     }
 
-    private void setLinks(Node previousBeforeRemoved, Node nextAfterRemoved) {
+    private void setLinks(Node<T> previousBeforeRemoved, Node<T> nextAfterRemoved) {
         previousBeforeRemoved.setLinkToNext(nextAfterRemoved);
         nextAfterRemoved.setLinkToPrevious(previousBeforeRemoved);
     }

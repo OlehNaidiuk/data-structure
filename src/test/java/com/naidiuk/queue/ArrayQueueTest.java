@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayQueueTest {
 
-    private final QueueInterface noSizedQueue = new ArrayQueue();
-    private final QueueInterface sizedQueue = new ArrayQueue(2);
+    private final Queue<String> noSizedQueue = new ArrayQueue<>();
+    private final Queue<String> sizedQueue = new ArrayQueue<>(2);
 
     @Test
     void testNoSizeQueuePushAndPop() {
@@ -29,7 +29,7 @@ class ArrayQueueTest {
         assertTrue(noSizedQueue.isEmpty());
 
         //When
-        noSizedQueue.push(123);
+        noSizedQueue.push("123");
         noSizedQueue.push("you");
 
         //Then
@@ -39,7 +39,7 @@ class ArrayQueueTest {
     @Test
     void testNoSizeQueueGetSize() {
         //When
-        noSizedQueue.push(123);
+        noSizedQueue.push("123");
 
         //Then
         assertEquals(1, noSizedQueue.getSize());

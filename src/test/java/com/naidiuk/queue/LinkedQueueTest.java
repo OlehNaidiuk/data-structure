@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedQueueTest {
 
-    private final QueueInterface linkedQueue = new LinkedQueue();
+    private final Queue<String> linkedQueue = new LinkedQueue<>();
 
     @Test
     void testPushAndPop() {
-        //Preapare
+        //Prepare
         int size;
         linkedQueue.push("Hi");
         linkedQueue.push("Stas!");

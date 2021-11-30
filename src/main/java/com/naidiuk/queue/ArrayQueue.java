@@ -1,28 +1,31 @@
 package com.naidiuk.queue;
 
-public class ArrayQueue implements QueueInterface {
-    private Object[] array;
+import java.util.StringJoiner;
+
+public class ArrayQueue<T> implements Queue<T> {
+
+    private T[] array;
     private int size;
 
     public ArrayQueue() {
-        array = new Object[20];
+        array = (T[]) new Object[20];
     }
 
     public ArrayQueue(int size) {
-        array = new Object[size];
+        array = (T[]) new Object[size];
     }
 
-    public Object pop() {
+    public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Queue is empty");
         }
-        Object first = array[0];
+        T first = array[0];
         System.arraycopy(array, 1, array, 0, array.length - 1);
         size--;
         return first;
     }
 
-    public void push(Object object) {
+    public void push(T object) {
         if (size == array.length) {
             reSize();
         }
@@ -40,22 +43,15 @@ public class ArrayQueue implements QueueInterface {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append('[');
+        StringJoiner result = new StringJoiner(", ", "{", "}");
         for (int i = 0; i < array.length; i++) {
-            result.append(array[i]);
-            if (i == array.length - 1) {
-                result.append(']');
-                break;
-            } else {
-                result.append(", ");
-            }
+            result.add(String.valueOf(array[i]));
         }
         return result.toString();
     }
 
     private void reSize() {
-        Object[] arrayCopy = new Object[size * 2];
+        T[] arrayCopy = (T[]) new Object[size * 2];
         System.arraycopy(array, 0, arrayCopy, 0, array.length);
         array = arrayCopy;
     }

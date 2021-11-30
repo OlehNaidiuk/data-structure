@@ -1,21 +1,21 @@
 package com.naidiuk.queue;
 
-public class LinkedQueue implements QueueInterface {
-    private Node first, last;
+public class LinkedQueue<T> implements Queue<T> {
+    private Node<T> first, last;
     private int size;
 
-    public Object pop() {
+    public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Queue is empty");
         }
-        Object firstElement = first.getElement();
+        T firstElement = first.getElement();
         first = first.getLink();
         size--;
         return firstElement;
     }
 
-    public void push(Object object) {
-        Node createdNode = new Node();
+    public void push(T object) {
+        Node<T> createdNode = new Node<>();
         createdNode.setElement(object);
         if (isEmpty()) {
             first = createdNode;

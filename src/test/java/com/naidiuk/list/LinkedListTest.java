@@ -5,11 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class LinkedListTest {
-    private final List linkedList = new LinkedList();
+    private final List<String> linkedList = new LinkedList<>();
 
     @BeforeEach
     void setup() {
-        linkedList.add(123,0);
+        linkedList.add("123",0);
         linkedList.add(null, 1);
     }
 
@@ -18,7 +18,7 @@ class LinkedListTest {
         //When
         int size = linkedList.getSize();
         linkedList.add("hello");
-        linkedList.add('a', 3);
+        linkedList.add("a", 3);
         int sizeAfterAdd = linkedList.getSize();
 
         //Then
@@ -30,11 +30,11 @@ class LinkedListTest {
     @Test
     void testRemove() {
         //When
-        Object firstRemoved = linkedList.remove(0);
-        Object secondRemoved = linkedList.remove(0);
+        String firstRemoved = linkedList.remove(0);
+        String secondRemoved = linkedList.remove(0);
 
         //Then
-        assertEquals(123, firstRemoved);
+        assertEquals("123", firstRemoved);
         assertEquals(null, secondRemoved);
     }
 
@@ -70,11 +70,11 @@ class LinkedListTest {
     @Test
     void testGetElement() {
         //When
-        Object firstElement = linkedList.getElement(0);
-        Object secondElement = linkedList.getElement(1);
+        String firstElement = linkedList.getElement(0);
+        String secondElement = linkedList.getElement(1);
 
         //Then
-        assertEquals(123, firstElement);
+        assertEquals("123", firstElement);
         assertEquals(null, secondElement);
     }
 
@@ -82,7 +82,7 @@ class LinkedListTest {
     void testContains() {
         //When
         boolean yes = linkedList.contains(null);
-        boolean no = linkedList.contains(999);
+        boolean no = linkedList.contains("999");
 
         //Then
         assertEquals(true, yes);

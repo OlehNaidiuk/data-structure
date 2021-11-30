@@ -1,23 +1,28 @@
 package com.naidiuk.stack;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedStackTest {
 
-    private final StackInterface linkedStack = new LinkedStack();
+    private final Stack<String> linkedStack = new LinkedStack<>();
 
-    @Test
-    void testPushAndPop() {
-        //Preapare
-        int size;
+    @BeforeEach
+    void setup() {
         linkedStack.push("Hi");
         linkedStack.push("Stas!");
         linkedStack.push("There");
         linkedStack.push("are");
         linkedStack.push("my");
         linkedStack.push("tests.");
+    }
+
+    @Test
+    void testPushAndPop() {
+        //Prepare
+        int size;
 
         //When
         Object last = linkedStack.pop();

@@ -1,22 +1,22 @@
 package com.naidiuk.queue;
 
-public class Node {
-    private Object element;
-    private Node link;
+public class Node<T> {
+    private T element;
+    private Node<T> link;
 
-    public void setElement(Object element) {
+    public void setElement(T element) {
         this.element = element;
     }
 
-    public Object getElement() {
+    public T getElement() {
         return element;
     }
 
-    public void setLinkToTheNext(Node node) {
+    public void setLinkToTheNext(Node<T> node) {
         this.link = node;
     }
 
-    public Node getLink() {
+    public Node<T> getLink() {
         return link;
     }
 }

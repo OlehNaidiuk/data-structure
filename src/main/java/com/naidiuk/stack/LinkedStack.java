@@ -1,22 +1,23 @@
 package com.naidiuk.stack;
 
-public class LinkedStack implements StackInterface {
-    private Node last;
+public class LinkedStack<T> implements Stack<T> {
+
+    private Node<T> last;
     private int size;
 
-    public Object pop() {
+    public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Stack is empty");
         }
-        Object lastElement = last.getElement();
+        T lastElement = last.getElement();
         last = last.getLink();
         size--;
         return lastElement;
     }
 
-    public void push(Object object) {
-        Node createdNode = new Node();
-        createdNode.setElement(object);
+    public void push(T element) {
+        Node<T> createdNode = new Node<>();
+        createdNode.setElement(element);
         createdNode.setLinkToPrevious(last);
         last = createdNode;
         size++;

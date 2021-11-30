@@ -1,18 +1,21 @@
 package com.naidiuk.stack;
 
-public class ArrayStack implements StackInterface {
-    private Object[] array;
+import java.util.StringJoiner;
+
+public class ArrayStack<T> implements Stack<T> {
+
+    private T[] array;
     private int size;
 
     public ArrayStack() {
-        array = new Object[20];
+        array = (T[]) new Object[10];
     }
 
     public ArrayStack(int size) {
-        array = new Object[size];
+        array = (T[]) new Object[size];
     }
 
-    public Object pop() {
+    public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Stack is empty");
         }
@@ -20,11 +23,11 @@ public class ArrayStack implements StackInterface {
         return array[size];
     }
 
-    public void push(Object object) {
+    public void push(T element) {
         if (size == array.length) {
             reSize();
         }
-        array[size] = object;
+        array[size] = element;
         size++;
     }
 
@@ -38,22 +41,15 @@ public class ArrayStack implements StackInterface {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append('[');
-        for (int i = 0; i < array.length; i++) {
-            result.append(array[i]);
-            if (i == array.length - 1) {
-                result.append(']');
-                break;
-            } else {
-                result.append(", ");
-            }
+        StringJoiner result = new StringJoiner(", ", "{", "}");
+        for (Object o : array) {
+            result.add(String.valueOf(o));
         }
         return result.toString();
     }
 
     private void reSize() {
-        Object[] arrayCopy = new Object[size * 2];
+        T[] arrayCopy = (T[]) new Object[size * 2];
         System.arraycopy(array, 0, arrayCopy, 0, array.length);
         array = arrayCopy;
     }

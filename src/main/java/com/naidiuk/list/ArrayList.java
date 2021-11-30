@@ -1,21 +1,23 @@
 package com.naidiuk.list;
 
 import java.util.NoSuchElementException;
+import java.util.StringJoiner;
 
-public class ArrayList implements List {
-    private Object[] array;
+public class ArrayList<T> implements List<T> {
+
+    private T[] array;
     private int size;
     private static final int DEFAULT_CAPACITY = 10;
 
     public ArrayList() {
-        array = new Object[DEFAULT_CAPACITY];
+        array = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     public ArrayList(int size) {
-        array = new Object[size];
+        array = (T[]) new Object[size];
     }
 
-    public void add(Object element) {
+    public void add(T element) {
         if (size == array.length) {
             reSize();
         }
@@ -23,7 +25,7 @@ public class ArrayList implements List {
         size++;
     }
 
-    public void add(Object element, int index) {
+    public void add(T element, int index) {
         if (size == array.length) {
             reSize();
         }
@@ -33,13 +35,13 @@ public class ArrayList implements List {
         size++;
     }
 
-    public Object remove(int index) {
+    public T remove(int index) {
         if (isEmpty()) {
             throw new NoSuchElementException("There are no elements in the list that can be removed!");
         } else {
             checkIndexBounds(index);
         }
-        Object removedElement = array[index];
+        T removedElement = array[index];
         System.arraycopy(array, index + 1, array, index, size - 1 - index);
         size--;
         return removedElement;
@@ -53,7 +55,7 @@ public class ArrayList implements List {
         return size == 0;
     }
 
-    public Object getElement(int index) {
+    public T getElement(int index) {
         if (isEmpty()) {
             throw new NoSuchElementException("There are no elements in the list!");
         } else {
@@ -62,7 +64,7 @@ public class ArrayList implements List {
         return array[index];
     }
 
-    public boolean contains(Object element) {
+    public boolean contains(T element) {
         if (element == null) {
             for (int i = 0; i < array.length; i++) {
                 if (array[i] == null) {
@@ -81,25 +83,18 @@ public class ArrayList implements List {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("[");
+        StringJoiner result = new StringJoiner(", ", "{", "}");
         for (int i = 0; i < array.length; i++) {
-            result.append(array[i]);
-            if (i == array.length - 1) {
-                result.append("]");
-                break;
-            } else {
-                result.append(", ");
-            }
+            result.add(String.valueOf(array[i]));
         }
         return result.toString();
     }
 
     private void reSize() {
         if (array.length == 0) {
-            array = new Object[array.length + 1];
+            array = (T[]) new Object[array.length + 1];
         } else {
-            Object[] resizedArray = new Object[size * 2];
+            T[] resizedArray = (T[]) new Object[size * 2];
             System.arraycopy(array, 0, resizedArray, 0, array.length);
             array = resizedArray;
         }
