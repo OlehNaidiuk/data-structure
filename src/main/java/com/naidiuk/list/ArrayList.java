@@ -17,6 +17,7 @@ public class ArrayList<T> implements List<T> {
         array = (T[]) new Object[size];
     }
 
+    @Override
     public void add(T element) {
         if (size == array.length) {
             reSize();
@@ -25,6 +26,7 @@ public class ArrayList<T> implements List<T> {
         size++;
     }
 
+    @Override
     public void add(T element, int index) {
         if (size == array.length) {
             reSize();
@@ -35,26 +37,26 @@ public class ArrayList<T> implements List<T> {
         size++;
     }
 
+    @Override
     public T remove(int index) {
-        if (isEmpty()) {
-            throw new NoSuchElementException("There are no elements in the list that can be removed!");
-        } else {
-            checkIndexBounds(index);
-        }
+        checkIndexBounds(index);
         T removedElement = array[index];
         System.arraycopy(array, index + 1, array, index, size - 1 - index);
         size--;
         return removedElement;
     }
 
+    @Override
     public int getSize() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public T getElement(int index) {
         if (isEmpty()) {
             throw new NoSuchElementException("There are no elements in the list!");
@@ -64,16 +66,17 @@ public class ArrayList<T> implements List<T> {
         return array[index];
     }
 
+    @Override
     public boolean contains(T element) {
         if (element == null) {
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == null) {
+            for (T t : array) {
+                if (t == null) {
                     return true;
                 }
             }
         } else {
-            for (int i = 0; i < array.length; i++) {
-                if (element.equals(array[i])) {
+            for (T t : array) {
+                if (element.equals(t)) {
                     return true;
                 }
             }
@@ -84,8 +87,8 @@ public class ArrayList<T> implements List<T> {
     @Override
     public String toString() {
         StringJoiner result = new StringJoiner(", ", "{", "}");
-        for (int i = 0; i < array.length; i++) {
-            result.add(String.valueOf(array[i]));
+        for (T t : array) {
+            result.add(String.valueOf(t));
         }
         return result.toString();
     }
@@ -101,7 +104,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     private void checkIndexBounds(int index) {
-        if (index < 0 || index >= array.length) {
+        if (index >= array.length) {
             throw new IndexOutOfBoundsException("Index does not exist! "
                     + "Please enter index between 0 and " + (array.length - 1) + ".");
         }

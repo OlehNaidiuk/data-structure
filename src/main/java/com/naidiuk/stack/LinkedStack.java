@@ -5,6 +5,7 @@ public class LinkedStack<T> implements Stack<T> {
     private Node<T> last;
     private int size;
 
+    @Override
     public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Stack is empty");
@@ -15,6 +16,7 @@ public class LinkedStack<T> implements Stack<T> {
         return lastElement;
     }
 
+    @Override
     public void push(T element) {
         Node<T> createdNode = new Node<>();
         createdNode.setElement(element);
@@ -23,10 +25,12 @@ public class LinkedStack<T> implements Stack<T> {
         size++;
     }
 
+    @Override
     public boolean isEmpty() {
         return getSize() == 0;
     }
 
+    @Override
     public int getSize() {
         return size;
     }

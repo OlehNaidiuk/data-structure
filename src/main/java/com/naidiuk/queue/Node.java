@@ -1,6 +1,7 @@
 package com.naidiuk.queue;
 
 public class Node<T> {
+
     private T element;
     private Node<T> link;
 

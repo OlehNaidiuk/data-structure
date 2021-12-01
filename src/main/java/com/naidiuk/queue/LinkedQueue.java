@@ -1,9 +1,11 @@
 package com.naidiuk.queue;
 
 public class LinkedQueue<T> implements Queue<T> {
+
     private Node<T> first, last;
     private int size;
 
+    @Override
     public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Queue is empty");
@@ -14,6 +16,7 @@ public class LinkedQueue<T> implements Queue<T> {
         return firstElement;
     }
 
+    @Override
     public void push(T object) {
         Node<T> createdNode = new Node<>();
         createdNode.setElement(object);
@@ -27,10 +30,12 @@ public class LinkedQueue<T> implements Queue<T> {
         size++;
     }
 
+    @Override
     public boolean isEmpty() {
         return getSize() == 0;
     }
 
+    @Override
     public int getSize() {
         return size;
     }

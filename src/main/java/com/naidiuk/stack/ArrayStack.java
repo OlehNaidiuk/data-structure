@@ -15,6 +15,7 @@ public class ArrayStack<T> implements Stack<T> {
         array = (T[]) new Object[size];
     }
 
+    @Override
     public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Stack is empty");
@@ -23,6 +24,7 @@ public class ArrayStack<T> implements Stack<T> {
         return array[size];
     }
 
+    @Override
     public void push(T element) {
         if (size == array.length) {
             reSize();
@@ -31,10 +33,12 @@ public class ArrayStack<T> implements Stack<T> {
         size++;
     }
 
+    @Override
     public boolean isEmpty() {
         return getSize() == 0;
     }
 
+    @Override
     public int getSize() {
         return size;
     }

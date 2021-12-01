@@ -15,6 +15,7 @@ public class ArrayQueue<T> implements Queue<T> {
         array = (T[]) new Object[size];
     }
 
+    @Override
     public T pop() {
         if (isEmpty()) {
             throw new RuntimeException("Queue is empty");
@@ -25,6 +26,7 @@ public class ArrayQueue<T> implements Queue<T> {
         return first;
     }
 
+    @Override
     public void push(T object) {
         if (size == array.length) {
             reSize();
@@ -33,10 +35,12 @@ public class ArrayQueue<T> implements Queue<T> {
         size++;
     }
 
+    @Override
     public boolean isEmpty() {
         return getSize() == 0;
     }
 
+    @Override
     public int getSize() {
         return size;
     }
@@ -44,8 +48,8 @@ public class ArrayQueue<T> implements Queue<T> {
     @Override
     public String toString() {
         StringJoiner result = new StringJoiner(", ", "{", "}");
-        for (int i = 0; i < array.length; i++) {
-            result.add(String.valueOf(array[i]));
+        for (T t : array) {
+            result.add(String.valueOf(t));
         }
         return result.toString();
     }
