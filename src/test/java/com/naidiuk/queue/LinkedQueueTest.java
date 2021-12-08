@@ -20,8 +20,8 @@ class LinkedQueueTest {
         linkedQueue.push("tests.");
 
         //When
-        Object first = linkedQueue.pop();
-        Object second = linkedQueue.pop();
+        String first = linkedQueue.pop();
+        String second = linkedQueue.pop();
         size = linkedQueue.getSize();
 
         //Then

@@ -15,8 +15,6 @@ class ArrayStackTest {
         noSizedStack.push("Stas!");
         noSizedStack.push("There");
         noSizedStack.push("are");
-        noSizedStack.push("my");
-        noSizedStack.push("tests.");
 
         sizedStack.push("3.22");
         sizedStack.push("123");
@@ -25,21 +23,20 @@ class ArrayStackTest {
     @Test
     void testNoSizeStackPushAndPop() {
         //When
+        noSizedStack.push("my");
+        noSizedStack.push("tests.");
         String lastElement = noSizedStack.pop();
         String prelastElement = noSizedStack.pop();
 
         //Then
         assertEquals("tests.", lastElement);
         assertEquals("my", prelastElement);
-        assertEquals(4, noSizedStack.getSize());
     }
 
     @Test
     void testNoSizeStackIsEmpty() {
         //When
         boolean no = noSizedStack.isEmpty();
-        noSizedStack.pop();
-        noSizedStack.pop();
         noSizedStack.pop();
         noSizedStack.pop();
         noSizedStack.pop();
@@ -61,8 +58,8 @@ class ArrayStackTest {
         int sizeAfterPop = noSizedStack.getSize();
 
         //Then
-        assertEquals(6, size);
-        assertEquals(3, sizeAfterPop);
+        assertEquals(4, size);
+        assertEquals(1, sizeAfterPop);
     }
 
     @Test
@@ -75,26 +72,27 @@ class ArrayStackTest {
 
         //Then
         assertEquals(6, sizedStack.getSize());
-        assertEquals("123", sizedStack.pop());
-        assertEquals("3.22", sizedStack.pop());
-        assertEquals(4, sizedStack.getSize());
         assertEquals("Oleh.", sizedStack.pop());
+        assertEquals("This is", sizedStack.pop());
+        assertEquals(4, sizedStack.getSize());
+        assertEquals("Stas!", sizedStack.pop());
     }
 
     @Test
     void testSizedStackIsEmpty() {
-        assertTrue(sizedStack.isEmpty());
+        assertFalse(sizedStack.isEmpty());
 
         //When
-        sizedStack.push("Hi");
+        sizedStack.pop();
+        sizedStack.pop();
 
         //Then
-        assertFalse(sizedStack.isEmpty());
+        assertTrue(sizedStack.isEmpty());
     }
 
     @Test
     void testSizedStackGetSize() {
-        assertEquals(0, sizedStack.getSize());
+        assertEquals(2, sizedStack.getSize());
 
         //When
         sizedStack.push("There are my");
@@ -102,6 +100,6 @@ class ArrayStackTest {
         sizedStack.pop();
 
         //Then
-        assertEquals(1, sizedStack.getSize());
+        assertEquals(3, sizedStack.getSize());
     }
 }

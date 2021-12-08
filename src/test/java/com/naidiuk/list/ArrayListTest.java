@@ -25,14 +25,14 @@ public class ArrayListTest {
     void testNoSizedListAdd() {
         //When
         int size = noSizedList.getSize();
-        String noSizedListContains = noSizedList.toString();
+        String noSizedListRetain = noSizedList.toString();
         noSizedList.add("789");
         noSizedList.add("33.4567", 1);
         int sizeAfterAdd = noSizedList.getSize();
 
         //Then
         assertEquals(4, size);
-        assertEquals("{123, null, 3.21, hello, null, null, null, null, null, null}", noSizedListContains);
+        assertEquals("{123, null, 3.21, hello, null, null, null, null, null, null}", noSizedListRetain);
         assertEquals(6, sizeAfterAdd);
         assertEquals("{123, 33.4567, null, 3.21, hello, 789, null, null, null, null}", noSizedList.toString());
     }
@@ -41,8 +41,8 @@ public class ArrayListTest {
     void testNoSizedListRemove() {
         //When
         int size = noSizedList.getSize();
-        Object firstRemoved = noSizedList.remove(1);
-        Object secondRemoved = noSizedList.remove(1);
+        String firstRemoved = noSizedList.remove(1);
+        String secondRemoved = noSizedList.remove(1);
         int sizeAfterRemove = noSizedList.getSize();
 
         //Then
@@ -60,12 +60,12 @@ public class ArrayListTest {
         noSizedList.remove(1);
         noSizedList.remove(1);
         int sizeAfterRemove = noSizedList.getSize();
-        String noSizedListContains = noSizedList.toString();
+        String noSizedListRetain = noSizedList.toString();
 
         //Then
         assertEquals(4, size);
         assertEquals(1, sizeAfterRemove);
-        assertEquals("{123, hello, hello, hello, null, null, null, null, null, null}", noSizedListContains);
+        assertEquals("{123, hello, hello, hello, null, null, null, null, null, null}", noSizedListRetain);
     }
 
     @Test
@@ -86,10 +86,10 @@ public class ArrayListTest {
     @Test
     void testNoSizedListGetElement() {
         //When
-        Object first = noSizedList.getElement(0);
-        Object second = noSizedList.getElement(1);
-        Object third = noSizedList.getElement(2);
-        Object fourth = noSizedList.getElement(3);
+        String first = noSizedList.getElement(0);
+        String second = noSizedList.getElement(1);
+        String third = noSizedList.getElement(2);
+        String fourth = noSizedList.getElement(3);
 
         //Then
         assertEquals("123", first);
@@ -113,27 +113,27 @@ public class ArrayListTest {
     void testSizedListAdd() {
         //When
         int size = sizedList.getSize();
-        String sizedListContains = sizedList.toString();
+        String sizedListRentain = sizedList.toString();
         sizedList.add("danger");
         int sizeAfterAdd = sizedList.getSize();
-        String overSizedListContains = sizedList.toString();
+        String overSizedListRetain = sizedList.toString();
 
         //Then
         assertEquals(3, size);
-        assertEquals("{789, null, 33.4567}", sizedListContains);
+        assertEquals("{789, null, 33.4567}", sizedListRentain);
         assertEquals(4, sizeAfterAdd);
-        assertEquals("{789, null, 33.4567, danger, null, null}", overSizedListContains);
+        assertEquals("{789, null, 33.4567, danger, null, null}", overSizedListRetain);
     }
 
     @Test
     void testSizedListRemove() {
         //When
-        Object removed = sizedList.remove(2);
-        String sizedListContains = sizedList.toString();
+        String removed = sizedList.remove(2);
+        String sizedListRetain = sizedList.toString();
 
         //Then
         assertEquals("33.4567", removed);
-        assertEquals("{789, null, 33.4567}", sizedListContains);
+        assertEquals("{789, null, 33.4567}", sizedListRetain);
     }
 
     @Test
@@ -167,7 +167,7 @@ public class ArrayListTest {
     @Test
     void testSizedListGetElement() {
         //When
-        Object second = sizedList.getElement(1);
+        String second = sizedList.getElement(1);
 
         //Then
         assertEquals(null, second);

@@ -21,13 +21,10 @@ class LinkedStackTest {
 
     @Test
     void testPushAndPop() {
-        //Prepare
-        int size;
-
         //When
-        Object last = linkedStack.pop();
-        Object preLast = linkedStack.pop();
-        size = linkedStack.getSize();
+        String last = linkedStack.pop();
+        String preLast = linkedStack.pop();
+        int size = linkedStack.getSize();
 
         //Then
         assertEquals("tests.", last);
@@ -37,41 +34,39 @@ class LinkedStackTest {
 
     @Test
     void testIsEmpty() {
-        //Prepare
-        boolean isEmpty;
+        //When
+        boolean isEmpty = linkedStack.isEmpty();
+
+        //Then
+        assertFalse(isEmpty);
 
         //When
+        linkedStack.pop();
+        linkedStack.pop();
+        linkedStack.pop();
+        linkedStack.pop();
+        linkedStack.pop();
+        linkedStack.pop();
         isEmpty = linkedStack.isEmpty();
 
         //Then
         assertTrue(isEmpty);
-
-        //When
-        linkedStack.push("Hi");
-        linkedStack.push("Stas!");
-        isEmpty = linkedStack.isEmpty();
-
-        //Then
-        assertFalse(isEmpty);
     }
 
     @Test
     void testGetSize() {
-        //Prepare
-        int size;
+        //When
+        int size = linkedStack.getSize();
+
+        //Then
+        assertEquals(6, size);
 
         //When
+        linkedStack.pop();
+        linkedStack.pop();
         size = linkedStack.getSize();
 
         //Then
-        assertEquals(0, size);
-
-        //When
-        linkedStack.push("Hi");
-        linkedStack.push("Stas!");
-        size = linkedStack.getSize();
-
-        //Then
-        assertEquals(2, size);
+        assertEquals(4, size);
     }
 }
