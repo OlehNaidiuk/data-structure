@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class LinkedListTest {
+
     private final List<String> linkedList = new LinkedList<>();
 
     @BeforeEach

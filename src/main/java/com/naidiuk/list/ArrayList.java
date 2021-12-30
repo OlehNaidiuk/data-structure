@@ -97,9 +97,9 @@ public class ArrayList<T> implements List<T> {
         if (array.length == 0) {
             array = (T[]) new Object[array.length + 1];
         } else {
-            T[] resizedArray = (T[]) new Object[size * 2];
-            System.arraycopy(array, 0, resizedArray, 0, array.length);
-            array = resizedArray;
+            T[] reSizedArray = (T[]) new Object[size * 2];
+            System.arraycopy(array, 0, reSizedArray, 0, array.length);
+            array = reSizedArray;
         }
     }
 

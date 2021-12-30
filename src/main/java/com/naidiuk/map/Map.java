@@ -1,12 +1,18 @@
 package com.naidiuk.map;
 
-public interface Map {
-    Object put(Object key, Object value);
-    Object putIfAbsent(Object key, Object value);
-    Object get(Object key);
+import java.util.Set;
+
+public interface Map<K, V> {
+    V put(K key, V value);
+    V putIfAbsent(K key, V value);
+    V get(K key);
     int size();
     boolean isEmpty();
-    Object remove(Object key);
-    boolean containsKey(Object key);
-    boolean containsValue(Object value);
+    V remove(K key);
+    boolean containsKey(K key);
+    boolean containsValue(V value);
+    void clear();
+    void putAll(Map <K, V> map);
+    Set<Entry<K, V>> entrySet();
+
 }
