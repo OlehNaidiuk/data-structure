@@ -24,7 +24,6 @@ class MapTest {
     void testPut() {
         //prepare
         Object val, val1, val2, val3, val4, val5;
-        String toString;
 
         //when
         val = map.put("five", 5);
@@ -33,7 +32,6 @@ class MapTest {
         val3 = map.put(null, 8);
         val4 = map.put("nine", 9);
         val5 = map.put(null, null);
-        toString = map.toString();
 
         //then
         assertNull(val);
@@ -42,7 +40,6 @@ class MapTest {
         assertNull(val3);
         assertNull(val4);
         assertEquals(8, val5);
-        assertEquals("{null=null, six=6, one=1, seven=7, nine=9, five=5, three=3, two=2, zero=0, four=4}", toString);
     }
 
     @Test
@@ -179,7 +176,6 @@ class MapTest {
     void testPutAll() {
         //prepare
         Object val, val1, val2;
-        String toString;
         Map<String, Integer> destinationMap = new HashMap<>();
         destinationMap.put("zero", 110);
         destinationMap.put("three", 33);
@@ -195,13 +191,11 @@ class MapTest {
         val = map.get("zero");
         val1 = map.get("three");
         val2 = map.get("ten");
-        toString = map.toString();
 
         //then
         assertEquals(110, val);
         assertEquals(33, val1);
         assertEquals(10, val2);
-        assertEquals("{null=null, six=6, one=1, nine=9, five=5, three=33, two=2, zero=110, four=4, ten=10, eight=8}", toString);
     }
 
     @Test
@@ -214,6 +208,6 @@ class MapTest {
         toString = mapSet.toString();
 
         //then
-        assertEquals("[two=2, three=3, zero=0, four=4, one=1]", toString);
+        assertEquals("[zero=0, one=1, two=2, three=3, four=4]", toString);
     }
 }

@@ -13,7 +13,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
-        if (size == entries.length) {
+        if (!containsKey(key) && size == entries.length) {
             reSize();
         }
         int index = findIndex(key);
@@ -38,7 +38,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V putIfAbsent(K key, V value) {
-        if (size == entries.length) {
+        if (!containsKey(key) && size == entries.length) {
             reSize();
         }
         int index = findIndex(key);
@@ -114,7 +114,7 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public V remove(Object key) {
+    public V remove(K key) {
         int index = findIndex(key);
         Entry<K, V> first = entries[index];
         if (first != null) {
@@ -137,7 +137,7 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(K key) {
         Entry<K, V> first = entries[findIndex(key)];
         if (first != null) {
             while (first != null) {
@@ -151,7 +151,7 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public boolean containsValue(Object value) {
+    public boolean containsValue(V value) {
         for (Entry<K, V> entry : entries) {
             if (entry != null) {
                 while (entry != null) {
@@ -178,19 +178,30 @@ public class HashMap<K, V> implements Map<K, V> {
         return result.toString();
     }
 
-    private int findIndex(Object key) {
+    private int findIndex(K key) {
         return key == null ? 0 : key.hashCode() % entries.length;
+    }
+
+    private int findIndex(Entry<K, V> entry) {
+        K key = entry.getKey();
+        return key == null ? 0 : key.hashCode() % (entries.length * 2);
     }
 
     private void reSize() {
         Entry<K, V>[] reSizedArray = (Entry<K, V>[]) new Entry[entries.length * 2];
-        int index;
-        K key;
         for (Entry<K, V> entry : entries) {
             if (entry != null) {
-                key = entry.getKey();
-                index = key == null ? 0 : key.hashCode() % reSizedArray.length;
-                reSizedArray[index] = entry;
+                while (entry != null) {
+                    int index = findIndex(entry);
+                    Entry<K, V> first = entry;
+                    entry = entry.getNext();
+                    first.setNext(null);
+                    if (reSizedArray[index] != null) {
+                        Entry<K, V> next = reSizedArray[index];
+                        first.setNext(next);
+                    }
+                    reSizedArray[index] = first;
+                }
             }
         }
         entries = reSizedArray;
