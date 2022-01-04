@@ -13,49 +13,21 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
-        if (!containsKey(key) && size == entries.length) {
-            reSize();
+        Entry<K, V> entry = addEntry(key, value);
+        if (entry != null) {
+            V oldValue = entry.getValue();
+            entry.setValue(value);
+            return oldValue;
         }
-        int index = findIndex(key);
-        Entry<K, V> first = entries[index];
-        Entry<K, V> entry = new Entry<>(key, value);
-        if (first != null) {
-            while (first != null) {
-                if ((key == first.getKey()) || (key != null && key.equals(first.getKey()))) {
-                    V oldValue = first.getValue();
-                    first.setValue(value);
-                    return oldValue;
-                }
-                first = first.getNext();
-            }
-            first = entries[index];
-            entry.setNext(first);
-        }
-        entries[index] = entry;
-        size++;
         return null;
     }
 
     @Override
     public V putIfAbsent(K key, V value) {
-        if (!containsKey(key) && size == entries.length) {
-            reSize();
+        Entry<K, V> entry = addEntry(key, value);
+        if (entry != null) {
+            return entry.getValue();
         }
-        int index = findIndex(key);
-        Entry<K, V> first = entries[index];
-        Entry<K, V> entry = new Entry<>(key, value);
-        if (first != null) {
-            while (first != null) {
-                if ((key == first.getKey()) || (key != null && key.equals(first.getKey()))) {
-                    return first.getValue();
-                }
-                first = first.getNext();
-            }
-            first = entries[index];
-            entry.setNext(first);
-        }
-        entries[index] = entry;
-        size++;
         return null;
     }
 
@@ -64,7 +36,7 @@ public class HashMap<K, V> implements Map<K, V> {
         Entry<K, V> first = entries[findIndex(key)];
         if (first != null) {
             while (first != null) {
-                if ((key == first.getKey()) || (key != null && key.equals(first.getKey()))) {
+                if (key == first.getKey() || (key != null && key.equals(first.getKey()))) {
                     return first.getValue();
                 }
                 first = first.getNext();
@@ -86,31 +58,32 @@ public class HashMap<K, V> implements Map<K, V> {
     @Override
     public void clear() {
         for (int i = 0; i < entries.length; i++) {
-            entries[i] = null;
+            if (entries[i] != null) {
+                entries[i] = null;
+            }
         }
         size = 0;
     }
 
     @Override
     public void putAll(Map<K, V> map) {
-        Set<Entry<K, V>> mapSet = map.entrySet();
-        for (Entry<K, V> entry : mapSet) {
+        for (Entry<K, V> entry : map.entrySet()) {
             put(entry.getKey(), entry.getValue());
         }
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        Set<Entry<K, V>> result = new HashSet<>();
+        Set<Entry<K, V>> entrySet = new HashSet<>();
         for (Entry<K, V> entry : entries) {
             if (entry != null) {
                 while (entry != null) {
-                    result.add(entry);
+                    entrySet.add(entry);
                     entry = entry.getNext();
                 }
             }
         }
-        return result;
+        return entrySet;
     }
 
     @Override
@@ -120,7 +93,7 @@ public class HashMap<K, V> implements Map<K, V> {
         if (first != null) {
             Entry<K, V> previous = null;
             while (first != null) {
-                if ((key == first.getKey()) || (key != null && key.equals(first.getKey()))) {
+                if (key == first.getKey() || (key != null && key.equals(first.getKey()))) {
                     if (previous == null) {
                         entries[index] = first.getNext();
                     } else {
@@ -141,7 +114,7 @@ public class HashMap<K, V> implements Map<K, V> {
         Entry<K, V> first = entries[findIndex(key)];
         if (first != null) {
             while (first != null) {
-                if ((key == first.getKey()) || (key != null && key.equals(first.getKey()))) {
+                if (key == first.getKey() || (key != null && key.equals(first.getKey()))) {
                     return true;
                 }
                 first = first.getNext();
@@ -155,7 +128,7 @@ public class HashMap<K, V> implements Map<K, V> {
         for (Entry<K, V> entry : entries) {
             if (entry != null) {
                 while (entry != null) {
-                    if ((value == entry.getValue()) || (value != null && value.equals(entry.getValue()))) {
+                    if (value == entry.getValue() || (value != null && value.equals(entry.getValue()))) {
                         return true;
                     }
                     entry = entry.getNext();
@@ -205,5 +178,27 @@ public class HashMap<K, V> implements Map<K, V> {
             }
         }
         entries = reSizedArray;
+    }
+
+    private Entry<K, V> addEntry(K key, V value) {
+        if (size == (int) (entries.length * 0.75)) {
+            reSize();
+        }
+        int index = findIndex(key);
+        Entry<K, V> first = entries[index];
+        Entry<K, V> entry = new Entry<>(key, value);
+        if (first != null) {
+            while (first != null) {
+                if (key == first.getKey() || (key != null && key.equals(first.getKey()))) {
+                    return first;
+                }
+                first = first.getNext();
+            }
+            first = entries[index];
+            entry.setNext(first);
+        }
+        entries[index] = entry;
+        size++;
+        return null;
     }
 }
